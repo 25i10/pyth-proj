@@ -61,7 +61,7 @@ def search(s_list, goal_list, _map, _mapDict, rows, cols):
         for g in goal_list:
             p,c,_s,_g = algo(s,g, _map, _mapDict, rows, cols)
 
-            print(c)
+            #print(c)
 
             if c < minC:
                 minC = c

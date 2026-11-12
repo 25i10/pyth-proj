@@ -1,4 +1,7 @@
 import astar
+import simanneal
+import gbfs
+import time
 
 rows = 60
 cols = 160
@@ -87,24 +90,52 @@ entries = {'lab':[(10,31),(21,15)], 'acad':[(24,15),(41,15)], 'test':[(58,158)],
 }
 inpKey = {'A':'acad','L':'lab','N':'admin','P1':'pems1','P2':'pems2','P3':'pems3','J':'jhost','S':'bhost','+':'med','C':'cafe','R':'arj','U':'ulti','M':'mess','JA':'anhost'}
 
-print("Key :\nA - Academics\tL - Laboratory\tN - Admin\nP1, P2, P3 - Pems Blocks\nJ - Jasmine Hostel\tJA - Jasmine Annex\tS - Ashwatha/Ashoka\nM - Mess\n+ - Medical Center\nR - Sports Complex\nU - Ultimate Store\tC - Cafeteria")
+print("Key :\nA - Academics\tL - Laboratory\tN - Admin\nP1, P2, P3 - Pems Blocks\nJ - Jasmine Hostel\tJA - Jasmine Annex\tS - Ashwatha/Ashoka\nM - Mess\n+ - Medical Center\nR - Sports Complex\nU - Ultimate Store\tC - Cafeteria\n")
 
 while(True):
-    a = input("\nEnter starting place : ").upper()
+    a = input("Enter starting place : ").upper()
     if a not in inpKey.keys():
-        print("Not valid, enter from key")
+        print("Not valid, enter from key\n")
         continue
     break
 
 while(True):
-    b = input("\nEnter destination place : ").upper()
+    b = input("Enter destination place : ").upper()
     if b not in inpKey.keys():
-        print("Not valid, enter from key")
+        print("Not valid, enter from key\n")
         continue
     break
 
-#path, c = astar.algo(entries['admin'][0],entries['bhost'][0],map,mapDict,rows,cols)
-path, c, st, goal = astar.search(entries[inpKey[a]],entries[inpKey[b]],map,mapDict,rows,cols)
+print("\n\n\nA* Star Search")
+start_time = time.perf_counter()
+path, c, st, goal, exp = astar.search(entries[inpKey[a]],entries[inpKey[b]],map,mapDict,rows,cols)
+end_time = time.perf_counter()
+displayMap(path,st,goal)
+print("\nTotal Cost : ",c)
+print(f"Exploted States : {exp}")
+print(f"Elapsed Time : {end_time - start_time : .6f}")
+print("="*cols)
 
-displayMap(path, st, goal)
-print("\nTotal Cost",c)
+
+print("\n\n\nGreedy Best First Search")
+start_time = time.perf_counter()
+path, c, st, goal, exp = gbfs.search(entries[inpKey[a]],entries[inpKey[b]],map,mapDict,rows,cols)
+end_time = time.perf_counter()
+displayMap(path,st,goal)
+print("\nTotal Cost : ",c)
+print(f"Exploted States : {exp}")
+print(f"Elapsed Time : {end_time - start_time : .6f}")
+print("="*cols)
+
+
+print("\n\n\nSimulated Annealing")
+start_time = time.perf_counter()
+path, c, st, goal, exp = simanneal.search(entries[inpKey[a]],entries[inpKey[b]],map,mapDict,rows,cols)
+end_time = time.perf_counter()
+displayMap(path,st,goal)
+print("\nTotal Cost : ",c)
+print(f"Exploted States : {exp}")
+if(goal not in path):
+    print("Didn't find goal in time")
+print(f"Elapsed Time : {end_time - start_time : .6f}")
+print("="*cols)

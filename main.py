@@ -112,7 +112,7 @@ path, c, st, goal, exp = astar.search(entries[inpKey[a]],entries[inpKey[b]],map,
 end_time = time.perf_counter()
 displayMap(path,st,goal)
 print("\nTotal Cost : ",c)
-print(f"Exploted States : {exp}")
+print(f"Explored States : {exp}")
 print(f"Elapsed Time : {end_time - start_time : .6f}")
 print("="*cols)
 
@@ -123,7 +123,7 @@ path, c, st, goal, exp = gbfs.search(entries[inpKey[a]],entries[inpKey[b]],map,m
 end_time = time.perf_counter()
 displayMap(path,st,goal)
 print("\nTotal Cost : ",c)
-print(f"Exploted States : {exp}")
+print(f"Explored States : {exp}")
 print(f"Elapsed Time : {end_time - start_time : .6f}")
 print("="*cols)
 
@@ -134,7 +134,7 @@ path, c, st, goal, exp = simanneal.search(entries[inpKey[a]],entries[inpKey[b]],
 end_time = time.perf_counter()
 displayMap(path,st,goal)
 print("\nTotal Cost : ",c)
-print(f"Exploted States : {exp}")
+print(f"Explored States : {exp}")
 if(goal not in path):
     print("Didn't find goal in time")
 print(f"Elapsed Time : {end_time - start_time : .6f}")
